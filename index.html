@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo Cáo Tồn Tại & Lãng Phí PTT 2025</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Cấu hình màu sắc May 10 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        m10: {
+                            blue: '#004b8d',      
+                            light: '#e6f0fa',     
+                            accent: '#003366',    
+                            red: '#d32f2f'        
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    transitionTimingFunction: {
+                        'spring': 'cubic-bezier(0.4, 0, 0.2, 1)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* CSS cho hiệu ứng cuộn mượt (Scroll Reveal) */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); /* Chuyển động rất mượt */
+            will-change: opacity, transform;
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hiệu ứng trễ cho các phần tử con (Staggering) */
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+        .delay-400 { transition-delay: 0.4s; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f8fafc; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+
+        /* Hiệu ứng hover cho bảng */
+        .table-row-hover:hover td {
+            background-color: #f0f9ff;
+            transition: background-color 0.2s ease;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-m10-blue selection:text-white">
+
+    <!-- Header / Hero Section -->
+    <header class="bg-gradient-to-r from-m10-blue to-m10-accent text-white shadow-lg sticky top-0 z-50 backdrop-blur-md bg-opacity-95 border-b border-white/10">
+        <div class="container mx-auto px-4 py-5 flex justify-between items-center">
+            <div>
+                <h1 class="text-xl md:text-2xl font-bold tracking-tight uppercase flex items-center gap-2">
+                    <i class="fa-solid fa-chart-pie opacity-80"></i> Báo Cáo Tổng Kết PTT
+                </h1>
+                <p class="text-blue-100 text-xs md:text-sm mt-1 opacity-90 font-light">Phân tích lãng phí 2025 & Biện pháp khắc phục 2026</p>
+            </div>
+            <div class="hidden md:block text-right text-xs opacity-80 border-l border-white/20 pl-4">
+                <p class="font-bold">PTT1 + PTT2</p>
+                <p>Tài liệu nội bộ</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-10 max-w-6xl">
+
+        <!-- MỤC I: THỐNG KÊ (Bảng dữ liệu) -->
+        <section class="reveal-on-scroll mb-12">
+            <div class="flex items-center gap-3 mb-6 border-b-2 border-m10-blue pb-3">
+                <div class="bg-m10-blue text-white w-10 h-10 flex items-center justify-center rounded-lg font-bold shadow-md text-lg">I</div>
+                <h2 class="text-2xl font-bold text-m10-blue uppercase tracking-tight">Thống kê Thiệt hại & Lãng phí 2025</h2>
+            </div>
+
+            <!-- Bảng 1 -->
+            <div class="bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 mb-8 hover:shadow-xl transition-shadow duration-500 reveal-on-scroll delay-100">
+                <div class="px-6 py-5 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
+                    <h3 class="font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-list-ul text-m10-blue"></i> Chi tiết đơn hàng phạt & lãng phí
+                    </h3>
+                    <span class="text-xs font-semibold bg-red-100 text-red-600 px-3 py-1 rounded-full border border-red-200 shadow-sm animate-pulse">Cảnh báo cao</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left">
+                        <thead class="text-xs text-white uppercase bg-m10-blue">
+                            <tr>
+                                <th class="px-4 py-4 text-center w-10">STT</th>
+                                <th class="px-4 py-4">Phòng</th>
+                                <th class="px-4 py-4">Khách hàng</th>
+                                <th class="px-4 py-4">Mã hàng</th>
+                                <th class="px-4 py-4">Thời gian</th>
+                                <th class="px-4 py-4">XN SX</th>
+                                <th class="px-4 py-4 text-right">SL Đơn</th>
+                                <th class="px-4 py-4 text-right">Trị giá FOB</th>
+                                <th class="px-4 py-4 text-right">Lợi nhuận</th>
+                                <th class="px-4 py-4 text-right bg-red-700 font-bold shadow-inner">Tiền Phạt (USD)</th>
+                                <th class="px-4 py-4 w-1/4">Nội dung</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr class="table-row-hover transition-colors">
+                                <td class="px-4 py-4 text-center font-medium text-slate-400">1</td>
+                                <td class="px-4 py-4 font-semibold text-slate-600">PTT1</td>
+                                <td class="px-4 py-4 font-bold text-m10-blue">ASM</td>
+                                <td class="px-4 py-4 font-mono text-slate-500">1042489</td>
+                                <td class="px-4 py-4 text-slate-600">T1-3/2024</td>
+                                <td class="px-4 py-4 text-slate-600">Đông Hưng</td>
+                                <td class="px-4 py-4 text-right font-medium">39,483</td>
+                                <td class="px-4 py-4 text-right text-slate-500">$854,806.95</td>
+                                <td class="px-4 py-4 text-right text-emerald-600 font-medium">$34,192.28</td>
+                                <td class="px-4 py-4 text-right font-bold text-red-600 bg-red-50/50">$1,798.24</td>
+                                <td class="px-4 py-4 text-xs text-slate-500 leading-relaxed">SP bị mốc, phải thuê kiểm lại toàn bộ</td>
+                            </tr>
+                            <tr class="table-row-hover transition-colors bg-slate-50/50">
+                                <td class="px-4 py-4 text-center font-medium text-slate-400">2</td>
+                                <td class="px-4 py-4 font-semibold text-slate-600">PTT1</td>
+                                <td class="px-4 py-4 font-bold text-m10-blue">ASM</td>
+                                <td class="px-4 py-4 font-mono text-slate-500">1036225</td>
+                                <td class="px-4 py-4 text-slate-600">T1-3/2025</td>
+                                <td class="px-4 py-4 text-slate-600">Đông Hưng</td>
+                                <td class="px-4 py-4 text-right font-medium">9,740</td>
+                                <td class="px-4 py-4 text-right text-slate-500">$214,280.00</td>
+                                <td class="px-4 py-4 text-right text-emerald-600 font-medium">$8,228.35</td>
+                                <td class="px-4 py-4 text-right font-bold text-red-600 bg-red-50/50">$5,717.46</td>
+                                <td class="px-4 py-4 text-xs text-slate-500 leading-relaxed">SP bị mốc, phải thuê kiểm lại toàn bộ</td>
+                            </tr>
+                            <tr class="table-row-hover transition-colors">
+                                <td class="px-4 py-4 text-center font-medium text-slate-400">3</td>
+                                <td class="px-4 py-4 font-semibold text-slate-600">PTT1</td>
+                                <td class="px-4 py-4 font-bold text-m10-blue">Mainpol</td>
+                                <td class="px-4 py-4 font-mono text-slate-500">PIA</td>
+                                <td class="px-4 py-4 text-slate-600">T3-4/25</td>
+                                <td class="px-4 py-4 text-slate-600">Trí Đức</td>
+                                <td class="px-4 py-4 text-right font-medium">43,025</td>
+                                <td class="px-4 py-4 text-right text-slate-500">$175,542.00</td>
+                                <td class="px-4 py-4 text-right text-emerald-600 font-medium">$22,459.05</td>
+                                <td class="px-4 py-4 text-right font-bold text-red-600 bg-red-50/50">$7,385.00</td>
+                                <td class="px-4 py-4 text-xs text-slate-500 leading-relaxed">SP bị mốc, phải thuê kiểm lại toàn bộ</td>
+                            </tr>
+                            <tr class="table-row-hover transition-colors bg-slate-50/50">
+                                <td class="px-4 py-4 text-center font-medium text-slate-400">4</td>
+                                <td class="px-4 py-4 font-semibold text-slate-600">PTT1</td>
+                                <td class="px-4 py-4 font-bold text-m10-blue">Motives-Mango</td>
+                                <td class="px-4 py-4 font-mono text-slate-500">Tango</td>
+                                <td class="px-4 py-4 text-slate-600">T5-6/2025</td>
+                                <td class="px-4 py-4 text-slate-600">Bỉm sơn / Hưng Hà</td>
+                                <td class="px-4 py-4 text-right font-medium">19,409</td>
+                                <td class="px-4 py-4 text-right text-slate-500">$501,528.56</td>
+                                <td class="px-4 py-4 text-right text-emerald-600 font-medium">$2,015.00</td>
+                                <td class="px-4 py-4 text-right font-bold text-red-600 bg-red-50/50">$13,000.00</td>
+                                <td class="px-4 py-4 text-xs text-slate-500 leading-relaxed">Giao hàng muộn so với lịch</td>
+                            </tr>
+                            <tr class="table-row-hover transition-colors">
+                                <td class="px-4 py-4 text-center font-medium text-slate-400">5</td>
+                                <td class="px-4 py-4 font-semibold text-slate-600">PTT1</td>
+                                <td class="px-4 py-4 font-bold text-m10-blue">LF</td>
+                                <td class="px-4 py-4 font-mono text-slate-500">134465</td>
+                                <td class="px-4 py-4 text-slate-600">Tháng 6/2025</td>
+                                <td class="px-4 py-4 text-slate-600">Bỉm Sơn</td>
+                                <td class="px-4 py-4 text-right font-medium">2,417</td>
+                                <td class="px-4 py-4 text-right text-slate-500">$50,588.00</td>
+                                <td class="px-4 py-4 text-right text-emerald-600 font-medium">$2,767.16</td>
+                                <td class="px-4 py-4 text-right font-bold text-red-600 bg-red-50/50">$4,805.86</td>
+                                <td class="px-4 py-4 text-xs text-slate-500 leading-relaxed">137sp lỗi xước vải/chấm dầu/lỗi may</td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="bg-slate-100 font-bold text-slate-800 border-t-2 border-slate-200">
+                            <tr>
+                                <td colspan="6" class="px-4 py-4 text-center uppercase tracking-wider text-xs">Tổng cộng</td>
+                                <td class="px-4 py-4 text-right">114,074</td>
+                                <td class="px-4 py-4 text-right">$1,796,745.51</td>
+                                <td class="px-4 py-4 text-right text-emerald-700">$69,661.84</td>
+                                <td class="px-4 py-4 text-right text-white bg-red-600 shadow-md">$32,706.56</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Bảng 2 -->
+             <div class="bg-white rounded-2xl shadow-sm overflow-hidden border border-slate-200 hover:shadow-xl transition-shadow duration-500 reveal-on-scroll delay-200">
+                <div class="px-6 py-5 bg-slate-50 border-b border-slate-200">
+                    <h3 class="font-bold text-slate-800 flex items-center gap-2">
+                         <i class="fa-solid fa-users text-m10-blue"></i> Tổng hợp phạt theo Khách Hàng
+                    </h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left">
+                        <thead class="bg-slate-200 text-slate-600 text-xs uppercase font-bold tracking-wider">
+                            <tr>
+                                <th class="px-6 py-4">STT</th>
+                                <th class="px-6 py-4">Khách Hàng</th>
+                                <th class="px-6 py-4 text-right">Số lượng (pcs)</th>
+                                <th class="px-6 py-4 text-right">Trị giá phạt (USD)</th>
+                                <th class="px-6 py-4 text-right">Tổng chi phí (USD)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr class="table-row-hover">
+                                <td class="px-6 py-4 font-medium text-slate-400">1</td>
+                                <td class="px-6 py-4 font-semibold text-slate-700">Premier</td>
+                                <td class="px-6 py-4 text-right text-slate-600">52,158</td>
+                                <td class="px-6 py-4 text-right text-slate-600">$8,891.87</td>
+                                <td class="px-6 py-4 text-right text-red-600 font-bold">$8,891.87</td>
+                            </tr>
+                            <tr class="table-row-hover bg-slate-50/50">
+                                <td class="px-6 py-4 font-medium text-slate-400">2</td>
+                                <td class="px-6 py-4 font-semibold text-slate-700">Newtimes (Hardley Davison)</td>
+                                <td class="px-6 py-4 text-right text-slate-600">-</td>
+                                <td class="px-6 py-4 text-right text-slate-600">$260.66</td>
+                                <td class="px-6 py-4 text-right text-red-600 font-bold">$260.66</td>
+                            </tr>
+                            <tr class="table-row-hover">
+                                <td class="px-6 py-4 font-medium text-slate-400">3</td>
+                                <td class="px-6 py-4 font-semibold text-slate-700">Li-Fung</td>
+                                <td class="px-6 py-4 text-right text-slate-600">3,598</td>
+                                <td class="px-6 py-4 text-right text-slate-600">$7,196.00</td>
+                                <td class="px-6 py-4 text-right text-red-600 font-bold">$7,196.00</td>
+                            </tr>
+                            <tr class="table-row-hover bg-slate-50/50">
+                                <td class="px-6 py-4 font-medium text-slate-400">4</td>
+                                <td class="px-6 py-4 font-semibold text-slate-700">Oktava</td>
+                                <td class="px-6 py-4 text-right text-slate-600">2,277</td>
+                                <td class="px-6 py-4 text-right text-slate-600">$8,206.20</td>
+                                <td class="px-6 py-4 text-right text-red-600 font-bold">$8,206.20</td>
+                            </tr>
+                             <tr class="table-row-hover">
+                                <td class="px-6 py-4 font-medium text-slate-400">5</td>
+                                <td class="px-6 py-4 font-semibold text-slate-700">Tranquil - Xinke</td>
+                                <td class="px-6 py-4 text-right text-slate-600">8,336</td>
+                                <td class="px-6 py-4 text-right text-slate-600">$273.15</td>
+                                <td class="px-6 py-4 text-right text-red-600 font-bold">$273.15</td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="bg-m10-blue text-white font-bold">
+                            <tr>
+                                <td></td>
+                                <td class="px-6 py-5 uppercase tracking-wider text-sm">Tổng cộng</td>
+                                <td class="px-6 py-5 text-right">66,369</td>
+                                <td class="px-6 py-5 text-right">$24,827.88</td>
+                                <td class="px-6 py-5 text-right text-xl">$24,827.88</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- MỤC II: CÁC TỒN TẠI -->
+        <section class="reveal-on-scroll mb-12">
+            <div class="flex items-center gap-3 mb-8 border-b-2 border-m10-blue pb-3">
+                <div class="bg-m10-blue text-white w-10 h-10 flex items-center justify-center rounded-lg font-bold shadow-md text-lg">II</div>
+                <h2 class="text-2xl font-bold text-m10-blue uppercase tracking-tight">Các Tồn Tại Trong Năm 2025</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Card 2.1 -->
+                <div class="bg-white p-7 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-slate-100 relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-red-500"></div>
+                    <div class="absolute -right-6 -bottom-6 text-9xl text-slate-50 opacity-50 group-hover:scale-110 transition duration-500 pointer-events-none">
+                        <i class="fa-solid fa-coins text-slate-100"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-slate-800 mb-4 flex items-center gap-2">
+                        <span class="bg-red-100 text-red-600 p-1.5 rounded-md text-sm"><i class="fa-solid fa-chart-line"></i></span>
+                        2.1. Quản trị chi phí & Quyết toán
+                    </h3>
+                    <ul class="space-y-3 text-slate-600 text-sm list-none relative z-10">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-exclamation text-red-400 mt-1 text-xs"></i> Phát sinh phạt chất lượng (nấm mốc, giao chậm, lỗi SP).</li>
+                        <li class="flex items-start gap-2 ml-4 text-slate-500"><i class="fa-solid fa-arrow-right text-slate-300 text-xs mt-1"></i> PTT1: <span class="font-semibold text-red-600">$32,706</span></li>
+                        <li class="flex items-start gap-2 ml-4 text-slate-500"><i class="fa-solid fa-arrow-right text-slate-300 text-xs mt-1"></i> PTT2: <span class="font-semibold text-red-600">$24,827</span></li>
+                        <li class="bg-red-50 p-2 rounded-lg border border-red-100 text-red-700 font-semibold text-center mt-2">Tổng phạt: $57,533</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-exclamation text-red-400 mt-1 text-xs"></i> Tỷ lệ quyết toán năm 2025 chưa đạt 100%.</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2.2 -->
+                <div class="bg-white p-7 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-slate-100 relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-orange-400"></div>
+                    <h3 class="font-bold text-xl text-slate-800 mb-4 flex items-center gap-2">
+                        <span class="bg-orange-100 text-orange-600 p-1.5 rounded-md text-sm"><i class="fa-solid fa-wifi"></i></span>
+                        2.2. Quản trị thông tin
+                    </h3>
+                    <ul class="space-y-3 text-slate-600 text-sm list-none">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-caret-right text-orange-400 mt-1"></i> Thông tin đến KH/XN còn chậm, chất lượng chưa đảm bảo.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-caret-right text-orange-400 mt-1"></i> Thiếu chủ động nghiên cứu thị trường, chủ yếu dựa vào nguồn có sẵn.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-caret-right text-orange-400 mt-1"></i> Tham mưu cho điều hành còn hạn chế.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-caret-right text-orange-400 mt-1"></i> Chưa nghiên cứu kỹ tiêu chuẩn KH mới để cảnh báo rủi ro.</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2.3 - Full width -->
+                <div class="col-span-1 md:col-span-2 bg-white p-7 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-slate-100 relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-yellow-500"></div>
+                     <h3 class="font-bold text-xl text-slate-800 mb-6 flex items-center gap-2">
+                        <span class="bg-yellow-100 text-yellow-600 p-1.5 rounded-md text-sm"><i class="fa-solid fa-boxes-stacked"></i></span>
+                        2.3. Quản trị đơn hàng FOB & Gia công
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-8 text-sm text-slate-600">
+                        <ul class="space-y-3 list-none">
+                            <li class="flex items-start gap-2"><i class="fa-regular fa-circle-xmark text-yellow-500 mt-1"></i> Chuẩn bị thông tin đầu vào cho XN chưa kịp thời, còn phát sinh chủ quan.</li>
+                            <li class="flex items-start gap-2"><i class="fa-regular fa-circle-xmark text-yellow-500 mt-1"></i> CBMH chưa phân loại thông tin ưu tiên để cảnh báo/xử lý sớm.</li>
+                            <li class="flex items-start gap-2"><i class="fa-regular fa-circle-xmark text-yellow-500 mt-1"></i> Thông tin bị động, XN phải hỏi ngược lại mới kiểm tra.</li>
+                            <li class="flex items-start gap-2"><i class="fa-regular fa-circle-xmark text-yellow-500 mt-1"></i> Đơn hàng nhỏ, mã phức tạp, gấp → Hiệu quả thấp.</li>
+                        </ul>
+                        <ul class="space-y-3 list-none">
+                            <li class="flex items-start gap-2"><i class="fa-regular fa-circle-check text-yellow-600 mt-1"></i> Phần mềm Miti chưa triển khai đồng bộ (đặc biệt hàng Veston, đơn nhỏ lẻ).</li>
+                            <li class="flex items-start gap-2"><i class="fa-regular fa-circle-check text-yellow-600 mt-1"></i> Hoàn chứng từ chậm, thiếu phiếu nhập, sót hóa đơn điện tử.</li>
+                            <li class="flex items-start gap-2"><i class="fa-regular fa-circle-check text-yellow-600 mt-1"></i> Dữ liệu Miti chưa chính xác (định mức, tiêu hao) ảnh hưởng thanh toán.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 2.4 -->
+                <div class="bg-white p-7 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-slate-100 relative overflow-hidden group">
+                     <div class="absolute top-0 left-0 w-1.5 h-full bg-blue-400"></div>
+                     <h3 class="font-bold text-xl text-slate-800 mb-4 flex items-center gap-2">
+                        <span class="bg-blue-100 text-blue-600 p-1.5 rounded-md text-sm"><i class="fa-solid fa-earth-asia"></i></span>
+                        2.4. Công tác thị trường & Khách hàng
+                    </h3>
+                    <ul class="space-y-3 text-slate-600 text-sm list-none">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-angle-right text-blue-400 mt-1 font-bold"></i> Bản tin thị trường tốt nhưng chưa vận dụng sâu vào thực tế.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-angle-right text-blue-400 mt-1 font-bold"></i> Sản lượng KH truyền thống giảm, KH mới chưa đủ bù đắp.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-angle-right text-blue-400 mt-1 font-bold"></i> Phụ thuộc KH lớn, rủi ro bị ép giá/giãn thanh toán.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-angle-right text-blue-400 mt-1 font-bold"></i> Chưa khai thác mạnh thị trường mới (Trung Đông, Ấn Độ, TQ).</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-angle-right text-blue-400 mt-1 font-bold"></i> Sourcing NPL nội địa và chuỗi liên kết chưa tối ưu.</li>
+                    </ul>
+                </div>
+
+                 <!-- Card 2.5 -->
+                 <div class="bg-white p-7 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-slate-100 relative overflow-hidden group">
+                     <div class="absolute top-0 left-0 w-1.5 h-full bg-purple-400"></div>
+                     <h3 class="font-bold text-xl text-slate-800 mb-4 flex items-center gap-2">
+                        <span class="bg-purple-100 text-purple-600 p-1.5 rounded-md text-sm"><i class="fa-solid fa-user-graduate"></i></span>
+                        2.5. Nhân sự & Nguồn lực
+                    </h3>
+                    <ul class="space-y-3 text-slate-600 text-sm list-none">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-400 mt-1"></i> Đào tạo chưa cá nhân hóa để khai thác tối đa năng lực.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-400 mt-1"></i> Nguy cơ phân tán nguồn lực giữa KH cũ và mới.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-purple-400 mt-1"></i> <span class="font-semibold text-purple-800">Kỹ năng mềm còn yếu:</span> Xử lý phát sinh, báo cáo chậm, quản lý thời gian kém.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- MỤC III + IV: PHÂN TÍCH & NGUYÊN NHÂN -->
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <!-- Mục III -->
+            <section class="reveal-on-scroll">
+                <div class="flex items-center gap-3 mb-6 border-b-2 border-m10-blue pb-3">
+                    <div class="bg-m10-blue text-white w-10 h-10 flex items-center justify-center rounded-lg font-bold shadow-md text-lg">III</div>
+                    <h2 class="text-xl font-bold text-m10-blue uppercase">Phân Tích Lãng Phí</h2>
+                </div>
+                <div class="bg-white p-7 rounded-2xl shadow-sm h-full border border-slate-200 hover:shadow-lg transition-all">
+                    <div class="space-y-5">
+                        <div class="p-4 bg-red-50 rounded-xl border border-red-100 hover:bg-red-100 transition-colors cursor-default">
+                            <h4 class="font-bold text-red-800 mb-1 flex items-center gap-2"><i class="fa-regular fa-clock"></i> 3.1. Lãng phí thời gian</h4>
+                            <p class="text-sm text-slate-600 pl-6">Thanh toán kéo dài (90-150 ngày) gây tăng tải chase nợ. Đơn hàng nhỏ/khó tốn thời gian nhưng hiệu quả thấp. Quy trình mua-kiểm soát còn lặp lại.</p>
+                        </div>
+                        <div class="p-4 bg-red-50 rounded-xl border border-red-100 hover:bg-red-100 transition-colors cursor-default">
+                            <h4 class="font-bold text-red-800 mb-1 flex items-center gap-2"><i class="fa-solid fa-money-bill-wave"></i> 3.2. Lãng phí chi phí</h4>
+                            <p class="text-sm text-slate-600 pl-6">Sourcing chưa tối ưu. Mua NPL chưa sát tiến độ gây tồn kho. Rủi ro chậm tiến độ dẫn đến phạt Air/Hủy đơn.</p>
+                        </div>
+                        <div class="p-4 bg-red-50 rounded-xl border border-red-100 hover:bg-red-100 transition-colors cursor-default">
+                            <h4 class="font-bold text-red-800 mb-1 flex items-center gap-2"><i class="fa-solid fa-arrow-trend-down"></i> 3.3. Lãng phí cơ hội</h4>
+                            <p class="text-sm text-slate-600 pl-6">Giá chào bị ép. Dữ liệu chào giá chưa đồng bộ. Chưa khai thác hết sản phẩm giá trị cao.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mục IV -->
+            <section class="reveal-on-scroll delay-100">
+                <div class="flex items-center gap-3 mb-6 border-b-2 border-m10-blue pb-3">
+                    <div class="bg-m10-blue text-white w-10 h-10 flex items-center justify-center rounded-lg font-bold shadow-md text-lg">IV</div>
+                    <h2 class="text-xl font-bold text-m10-blue uppercase">Nguyên Nhân</h2>
+                </div>
+                <div class="bg-white p-7 rounded-2xl shadow-sm h-full border border-slate-200 hover:shadow-lg transition-all flex flex-col justify-center">
+                    <ul class="space-y-6">
+                        <li class="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-50 transition-colors">
+                            <div class="bg-slate-200 p-3 rounded-lg text-slate-600 font-bold text-sm min-w-[100px] text-center uppercase tracking-wide">
+                                <i class="fa-solid fa-user-tie block text-2xl mb-1"></i>
+                                Lãnh đạo
+                            </div>
+                            <span class="text-sm text-slate-600 leading-relaxed pt-1">Bao quát chưa khoa học. Động viên chưa hiệu quả. Giám sát chưa sâu sát. Thiếu sáng tạo quản lý. Tham mưu hạn chế.</span>
+                        </li>
+                        <li class="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-50 transition-colors">
+                             <div class="bg-slate-200 p-3 rounded-lg text-slate-600 font-bold text-sm min-w-[100px] text-center uppercase tracking-wide">
+                                <i class="fa-solid fa-users-gear block text-2xl mb-1"></i>
+                                CBMH
+                            </div>
+                            <span class="text-sm text-slate-600 leading-relaxed pt-1">Năng lực chưa đều. Thiếu chủ động kiểm tra chéo. Thiếu liên kết thông tin trong nhóm.</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <!-- MỤC V: BIỆN PHÁP 2026 -->
+        <section class="reveal-on-scroll delay-200 mb-16">
+            <div class="flex items-center gap-3 mb-8 border-b-2 border-m10-blue pb-3">
+                <div class="bg-m10-blue text-white w-10 h-10 flex items-center justify-center rounded-lg font-bold shadow-md text-lg">V</div>
+                <h2 class="text-2xl font-bold text-m10-blue uppercase tracking-tight">Biện Pháp Khắc Phục 2026</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Giải pháp 1 -->
+                <div class="bg-gradient-to-br from-blue-50 to-white p-6 rounded-xl border border-blue-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
+                    <div class="text-m10-blue mb-4 p-3 bg-white rounded-lg inline-block shadow-sm group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-bullseye text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-3 text-lg">Thị trường & Đào tạo</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed opacity-80 group-hover:opacity-100">
+                        Phát huy các Team chuyên trách (Sourcing, Số, Đào tạo). Tìm KH doanh thu cao. Đa dạng hóa thị trường. Cập nhật "Sổ tay Harvard online". Đào tạo qua clip ngắn/AI cho GenZ.
+                    </p>
+                </div>
+
+                <!-- Giải pháp 2 -->
+                <div class="bg-gradient-to-br from-blue-50 to-white p-6 rounded-xl border border-blue-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
+                    <div class="text-m10-blue mb-4 p-3 bg-white rounded-lg inline-block shadow-sm group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-list-check text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-3 text-lg">Quản trị đơn hàng</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed opacity-80 group-hover:opacity-100">
+                        Tập trung chuẩn bị SX (May mẫu, PP). KPI trả lời trong 24h. Kiểm soát chặt chi phí NPL/Vận chuyển. Đàm phán thanh toán có lợi. Xây dựng TNA chi tiết.
+                    </p>
+                </div>
+
+                <!-- Giải pháp 3 -->
+                <div class="bg-gradient-to-br from-blue-50 to-white p-6 rounded-xl border border-blue-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
+                    <div class="text-m10-blue mb-4 p-3 bg-white rounded-lg inline-block shadow-sm group-hover:scale-110 transition-transform">
+                        <i class="fa-regular fa-lightbulb text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-3 text-lg">Sáng kiến cải tiến</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed opacity-80 group-hover:opacity-100">
+                        Mỗi nhóm 2-3 sáng kiến/quý. Thay đổi tư duy làm việc. Xây dựng ngân hàng dữ liệu chào giá (giá CM, định mức, leadtime...) bảo mật cao.
+                    </p>
+                </div>
+
+                <!-- Giải pháp 4 -->
+                <div class="bg-gradient-to-br from-blue-50 to-white p-6 rounded-xl border border-blue-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group">
+                    <div class="text-m10-blue mb-4 p-3 bg-white rounded-lg inline-block shadow-sm group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-laptop-code text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-800 mb-3 text-lg">Chuyển đổi số</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed opacity-80 group-hover:opacity-100">
+                        Giấy ra cổng online. Ứng dụng AI/ChatGPT (dịch thuật, báo cáo). Hoàn chứng từ online. Báo cáo doanh thu tự động từ Miti. 2026 đẩy mạnh toàn diện.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER HIGHLIGHT -->
+        <div class="bg-gradient-to-r from-m10-blue to-m10-accent text-white rounded-3xl p-12 text-center shadow-2xl mb-10 reveal-on-scroll relative overflow-hidden">
+            <!-- Decorative circles -->
+            <div class="absolute -top-10 -left-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
+
+            <h3 class="text-lg opacity-80 uppercase tracking-widest mb-8 border-b border-white/20 inline-block pb-2">Mục tiêu trọng điểm 2026</h3>
+            <div class="space-y-6 text-xl md:text-3xl font-bold">
+                <p class="hover:scale-105 transition-transform cursor-default drop-shadow-md">“CHỦ ĐỘNG CHỌN VIỆC KHÓ”</p>
+                <div class="w-24 h-1.5 bg-white/30 mx-auto rounded-full"></div>
+                <p class="hover:scale-105 transition-transform cursor-default drop-shadow-md">“QUẢN TRỊ CHI PHÍ, TIẾT KIỆM TỐI ĐA TRÊN MỌI HOẠT ĐỘNG”</p>
+                <div class="w-24 h-1.5 bg-white/30 mx-auto rounded-full"></div>
+                <p class="hover:scale-105 transition-transform cursor-default text-blue-100 text-lg md:text-2xl mt-4 font-medium italic">“CHẤT LƯỢNG CÔNG VIỆC CBMH LÀ NĂNG SUẤT TẠI CÁC XÍ NGHIỆP”</p>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-slate-800 text-slate-400 py-8 text-center text-sm border-t border-slate-700">
+        <p>&copy; 2026 Phòng Thị Trường 1 & 2. Tài liệu lưu hành nội bộ.</p>
+    </footer>
+
+    <!-- Script xử lý hiệu ứng mượt -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Chỉ chạy 1 lần để tối ưu hiệu năng
+                    }
+                });
+            }, observerOptions);
+
+            const elements = document.querySelectorAll('.reveal-on-scroll');
+            elements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
